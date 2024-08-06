@@ -1,0 +1,98 @@
+#!/bin/bash
+
+#script to organize photo by room numbers with authentication by room number and a seed always changing
+#room number + user web nginx
+
+systemctl restart nginx
+
+mycase=$1
+mypath=/opt/photoholidays
+
+case $mycase in
+
+	requirements)
+		#authentication stuff
+		 yum install httpd-tools -y
+		 yum install nginx -y
+		;;
+
+	rooms)
+		#una tantum
+		cd $mypath
+		read -p "numbers of rooms available? " rooms
+		echo "total rooms number are:  $rooms"
+		mystart=1
+		for (( r = $mystart; r <= $rooms ; r++)); do
+			echo "room number $r"
+			mkdir -p $mypath/rooms/$r
+		done
+
+		#le folder corrispondono anche agli utenti generici che hanno accesso alla folder della camera
+		#per privacy avranno accesso alla subfolder del relativo periodo
+		#qui solo per creazione utenti anche questa una tantum
+
+
+		;;
+
+	checkin1)
+		read -p "which is the room number? " room
+		read -p "write here the check-in date in the following format yyyymmdd " checkin
+		echo -e "room: $room; \t checkin: $checkin"
+
+		rm -rf ${mypath}/rooms/${room}
+
+#room level
+		mkdir -p $mypath/rooms/$room
+		#mi serve per fare in modo che la singola room sia accessibile via web
+	  cat <<EOF > "${mypath}/rooms/${room}/${room}.conf"
+location /${room} {
+  autoindex on;
+  auth_basic           "room ${room}";
+  auth_basic_user_file ${mypath}/rooms/${room}/.htpasswd;
+}
+EOF
+
+  myuser=$room
+  mypassword=room
+  echo $mypassword | htpasswd -c -i -B $mypath/rooms/$room/.htpasswd $myuser
+
+#checkin level
+	mkdir -p $mypath/rooms/$room/$checkin
+
+#devo assicurarmi che solo la folder del checkin sia visibile tra le altre
+chmod 0600 -R $mypath/rooms/$room/
+chmod 0755 $mypath/rooms/$room/
+chmod 644 ${mypath}/rooms/${room}/.htpasswd ${mypath}/rooms/${room}/${room}.conf
+chmod 0755 -R $mypath/rooms/$room/$checkin 
+		;;
+
+
+	checkinlist)
+		cd $mypath
+		#per le camere indicate faccio checkin
+		#leggo da un file le camere di cui fare checkin
+		#source <(grep = checkins.ini)
+		#echo $r539
+		while read line; do
+			room=$(echo $line | cut -d"=" -f1)
+			checkin=$(echo $line | cut -d"=" -f2)
+			echo "room: $room; checkin: $checkin"
+
+                seed=0
+                mypassword=$room$checkin$seed
+                echo $mypassword | htpasswd -i -B $mypath/rooms/$room/$checkin/.htpasswd $room
+
+		done < checkins.txt
+
+		;;
+
+	user)
+		#first user and first creation file -c
+		echo "room" | htpasswd -i -B -c /opt/photoholidays/rooms/.htpasswd room
+	;;
+
+	*)
+		echo "pirla"
+		;;
+
+esac
