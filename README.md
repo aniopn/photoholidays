@@ -11,8 +11,7 @@
  for each room number (i.e a customer) a subfolder exists named with the check-in, date which is only accessible for that specific customer at that specific time for privacy reasons of course.
  even an automatic deletion of folders & files can be configured by changing the time frame.
 
-
-https://img.shields.io/badge/my_key-is_free-red
+![script](https://img.shields.io/badge/script-bash-red)
 
 
 #bash #script #photos #holidays #url #free #solution #nginx #webpage #privacy
