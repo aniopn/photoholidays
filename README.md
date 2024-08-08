@@ -14,6 +14,6 @@
 
  still in wip...
 
-https://img.shields.io/badge/keys-free-red
+https://img.shields.io/badge/my_key-is_free-red
 
 #bash #script #photos #holidays #url #free #solution #nginx #webpage #privacy
