@@ -6,7 +6,8 @@
 	server_name _;
         autoindex on;
 	#una conf del sito per ogni camere per essere dinamica senno la devo scrivere a mano una tantum
-	include /opt/photoholidays/rooms/*/*.conf;
+	#include /opt/photoholidays/rooms/*/*.conf;
+	include /opt/photoholidays/nginx-conf/*.conf;
 
         location / {
                 autoindex on;
