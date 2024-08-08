@@ -15,6 +15,7 @@
  still in wip...
 
 https://img.shields.io/badge/my_key-is_free-blue
+https://img.shields.io/badge/any_text-you_like-blue
 
 
 #bash #script #photos #holidays #url #free #solution #nginx #webpage #privacy
