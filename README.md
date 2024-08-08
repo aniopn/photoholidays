@@ -12,10 +12,9 @@
  even an automatic deletion of folders & files can be configured by changing the time frame.
 
 
- still in wip...
-
-https://img.shields.io/badge/my_key-is_free-blue
-https://img.shields.io/badge/any_text-you_like-blue
+https://img.shields.io/badge/my_key-is_free-red
 
 
 #bash #script #photos #holidays #url #free #solution #nginx #webpage #privacy
+
+still in wip...
