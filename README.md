@@ -10,4 +10,8 @@
  this password should always be configured for each check-in of the customer, even via a check-in list of dates to accomplish the procedure in bulk.
  for each room number (i.e a customer) a subfolder exists named with the check-in, date which is only accessible for that specific customer at that specific time for privacy reasons of course.
  even an automatic deletion of folders & files can be configured by changing the time frame.
- 
+
+
+ still in wip...
+
+ #bash #script #photos #holidays #url #free #solution #nginx #webpage
